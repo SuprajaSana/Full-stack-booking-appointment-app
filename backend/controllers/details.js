@@ -6,7 +6,8 @@ await Details.findAll()
         res.status(200).json({user:details})
     })
     .catch((err) => {
-      console.log(err);
+      console.log(JSON.stringify(err));
+      res.status(500).json({ error: err });
     });
 };
 
@@ -22,11 +23,17 @@ exports.postAddDetails = async (req, res, next) => {
     .then((details) => {
         res.status(201).json({ user: details })
     })
-    .catch((err) =>res.status(500).json({err}));
+    .catch((err) =>res.status(500).json({error:err}));
 };
 
-exports.postDeleteDetails = async(req, res, next) => {
-  const prodId = req.params.id;
+exports.postDeleteDetails = async (req, res, next) => {
+  try {
+    
+    const prodId = req.params.id;
     await Details.destroy({ where: { id: prodId } });
     res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err)
+  }
 };

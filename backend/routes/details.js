@@ -8,6 +8,6 @@ router.get("/get/details",detailsController.getDetails );
 
 router.post("/add/details",detailsController.postAddDetails );
 
-router.post("/delete/details/:id",detailsController.postDeleteDetails );
+router.delete("/delete/details/:id",detailsController.postDeleteDetails );
 
 module.exports = router;
